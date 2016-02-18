@@ -2,23 +2,22 @@
 
 from setuptools import setup
 
+version = '0.0.2'
+
 requires = ['docopt']
 
 with open('README.rst') as f:
     readme = f.read()
 
-with open('LICENSE') as f:
-    license = f.read()
-
 setup(
     name='sooty',
-    version='0.0.1',
+    version=version,
     description='Sooty: Simple database migrator.',
     long_description=readme,
     author='Jeff Zellman',
     author_email='jzellman@gmail.com',
     url='https://github.com/jzellman/sooty',
-    license=license,
+    license='ISC',
     py_modules=['sooty'],
     package_data={'': ['LICENSE']},
     include_package_data=True,

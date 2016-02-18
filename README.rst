@@ -24,6 +24,7 @@ Usage
 
 To run your migrations just
 
+
 .. code:: sh
 
     $ sooty run <database_url>
