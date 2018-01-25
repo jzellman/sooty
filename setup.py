@@ -4,7 +4,7 @@ from setuptools import setup
 
 version = '0.0.2'
 
-requires = ['docopt']
+requires = ['docopt', 'psycopg2']
 
 with open('README.rst') as f:
     readme = f.read()
