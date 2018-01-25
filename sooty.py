@@ -1,7 +1,11 @@
+from __future__ import print_function
 from contextlib import contextmanager
 from datetime import datetime
 import os
-import urlparse
+try:
+    from urllib import parse as urlparse
+except ImportError:
+    import urlparse
 
 from docopt import docopt
 import psycopg2
@@ -83,12 +87,12 @@ class Connection(object):
 
         for migration in self.sorted_migrations():
             if migration.version not in applied:
-                print "Applying %s" % migration.filepath
+                print("Applying %s" % migration.filepath)
                 self.execute(migration.sql)
                 self.execute(
                     "INSERT INTO schema_info (version) VALUES ('%s')" % migration.version)
             else:
-                print "Skipping %s" % migration.filepath
+                print("Skipping %s" % migration.filepath)
 
     def sorted_migrations(self):
         full_paths = [os.path.join(self.migration_dir, f) for f in os.listdir(self.migration_dir)
@@ -147,15 +151,16 @@ Notes:
     params = arguments['<params>']
 
     if action not in supported_actions:
-        print "Action must be one of %s" % ", ".join(supported_actions)
+        print("Action must be one of %s" % ", ".join(supported_actions))
         exit(64)
 
     if action == 'create':
         if not params:
-            print "You must provide a name for your migration"
+            print("You must provide a name for your migration")
+            exit(66)
         name = " ".join(params)
         result_path = create_migration(name, arguments['--dir'])
-        print "Created %s" % result_path
+        print("Created %s" % result_path)
     elif action == 'run':
         db = Connection(arguments['--url'])
         db.run()
